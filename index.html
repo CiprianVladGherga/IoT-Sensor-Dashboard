@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Sensor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="frontend/style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">IoT Sensor Dashboard</h1>
+            <p class="text-gray-600">Real-time monitoring of environmental sensors</p>
+        </header>
+
+        <!-- Status Indicator -->
+        <div class="mb-6">
+            <div id="connection-status" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium">
+                <div class="w-2 h-2 rounded-full mr-2"></div>
+                <span>Connecting...</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mb-6 flex gap-4">
+            <button id="refresh-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Refresh Data
+            </button>
+            <button id="auto-refresh-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Auto Refresh: OFF
+            </button>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="hidden mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+            <strong>Error:</strong> <span id="error-text"></span>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="hidden mb-6">
+            <div class="flex items-center justify-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <span class="ml-2 text-gray-600">Loading sensor data...</span>
+            </div>
+        </div>
+
+        <!-- Sensor Cards Grid -->
+        <div id="sensor-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Sensor cards will be dynamically generated here -->
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800">Recent Sensor Readings</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sensor ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sensor-table-body" class="bg-white divide-y divide-gray-200">
+                        <!-- Table rows will be dynamically generated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="mt-6 text-center text-sm text-gray-500">
+            Last updated: <span id="last-updated">Never</span>
+        </div>
+    </div>
+
+    <script src="frontend/script.js"></script>
+</body>
+</html>

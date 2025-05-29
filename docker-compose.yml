@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Backend API service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: iot-dashboard-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+    volumes:
+      - ./data:/app/data
+    networks:
+      - iot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend service
+  frontend:
+    image: nginx:alpine
+    container_name: iot-dashboard-frontend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - iot-network
+    restart: unless-stopped
+
+  # Optional: Database service for future use
+  # database:
+  #   image: postgres:15-alpine
+  #   container_name: iot-dashboard-db
+  #   environment:
+  #     POSTGRES_DB: iot_dashboard
+  #     POSTGRES_USER: iot_user
+  #     POSTGRES_PASSWORD: iot_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - iot-network
+  #   restart: unless-stopped
+
+networks:
+  iot-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+
+# Additional configuration for development
+# To run in development mode, create a docker-compose.override.yml file

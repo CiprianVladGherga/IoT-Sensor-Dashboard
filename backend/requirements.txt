@@ -1,0 +1,22 @@
+# IoT Sensor Dashboard Backend Dependencies
+# Flask web framework for REST API
+Flask==2.3.3
+
+# Flask extensions
+Flask-CORS==4.0.0
+
+# HTTP server for production deployment
+gunicorn==21.2.0
+
+# Development and testing
+pytest==7.4.2
+requests==2.31.0
+
+# Logging and monitoring
+python-json-logger==2.0.7
+
+# Data handling
+python-dateutil==2.8.2
+
+# Environment configuration
+python-dotenv==1.0.0
